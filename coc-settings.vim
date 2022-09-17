@@ -1,1 +1,0 @@
-/Users/chinmay/.config/nvim/coc-settings.vim
