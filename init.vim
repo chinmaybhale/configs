@@ -8,13 +8,13 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kdheepak/tabline.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'dracula/vim', {'name':'dracula'}
-Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug '907th/vim-auto-save'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -28,9 +28,13 @@ set shiftwidth=4
 set softtabstop=4
 
 " colorscheme specific settings
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
 set background=dark
-colorscheme dracula
+let g:gruvbox_italic=1
+set list
+let g:gruvbox_invert_indent_guides=1
+colorscheme gruvbox
 
 " coc-nvim settings
 source ~/.config/nvim/coc-settings.vim
@@ -49,6 +53,10 @@ hi CocMenuSel ctermbg=109 guibg=#13354A
 " auto save
 let g:auto_save = 1
 let g:auto_save_events = ["InsertLeave"]
+
+" Python3 environemt
+let g:python3_host_prog="/opt/homebrew/bin/python3"
+
 
 " lualine statusline
 lua << END
@@ -72,7 +80,7 @@ require'tabline'.setup {
 require'lualine'.setup {
   options = {
     icons_enabled = false,
-    theme = 'dracula',
+    theme = 'gruvbox-material',
     component_separators = { left = ' ', right = ' '},
     section_separators = { left = ' ', right = ' '},
     disabled_filetypes = {},
@@ -81,7 +89,7 @@ require'lualine'.setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
+    lualine_c = {'filename', 'coc#status', 'b:coc_current_function'},
     lualine_x = {'encoding','fileformat','filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
@@ -107,6 +115,9 @@ require'lualine'.setup {
 
 
 -- OR setup with some options
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
