@@ -15,6 +15,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
+Plug 'dhananjaylatkar/cscope_maps.nvim'
+Plug 'folke/which-key.nvim' 
 
 call plug#end()
 
@@ -24,10 +26,13 @@ set noshowmode
 syntax on
 
 " indentation specific settings
-set shiftwidth=4
-set softtabstop=4
+set noexpandtab
+set tabstop=4
+set shiftwidth=0
+set softtabstop=0
+set smarttab
 
-" colorscheme specific settings
+" colorscheme specific setting
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
 set background=dark
@@ -38,19 +43,14 @@ colorscheme gruvbox
 
 " coc-nvim settings
 source ~/.config/nvim/coc-settings.vim
-"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-"inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
-"" remap for complete to use tab and <cr>
-"inoremap <silent><expr> <TAB>
-"		\ coc#pum#visible() ? coc#pum#next(1):
-"		\ <SID>check_back_space() ? "\<Tab>" :
-"		\ coc#refresh()
-"inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-"inoremap <silent><expr> <c-space> coc#refresh()
 
 hi CocSearch ctermfg=12 guifg=#18A3FF
 hi CocMenuSel ctermbg=109 guibg=#13354A
+
 " auto save
+set noswapfile
+"set nobackup
+"set nowritebackup
 let g:auto_save = 1
 let g:auto_save_events = ["InsertLeave"]
 
@@ -58,16 +58,13 @@ let g:auto_save_events = ["InsertLeave"]
 let g:python3_host_prog="/opt/homebrew/bin/python3"
 
 
+" set global clipboard
+"set clipboard=unnamedplus
+
 " lualine statusline
 lua << END
 
---use {
---		'kdheepak/tabline.nvim',
---		config = function()
---				require'tabline'.setup {enable = false}
---		end,
---		requires = {'hoob3rt/lualine.nvim', 'kyazdani42/nvim-web-devicons'}
---}
+require("cscope_maps")
 
 require'tabline'.setup {
 		enable = true,
@@ -114,11 +111,10 @@ require'lualine'.setup {
 }
 
 
--- OR setup with some options
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
-require("nvim-tree").setup({
+require"nvim-tree".setup{
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,
@@ -134,6 +130,6 @@ require("nvim-tree").setup({
   filters = {
     dotfiles = true,
   },
-})
+}
 
 END

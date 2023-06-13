@@ -93,6 +93,9 @@ export PROJECT_HOME=$HOME/Documents
 export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
 source /opt/homebrew/bin/virtualenvwrapper.sh
 
+
+export PATH=/opt/homebrew/opt/riscv-gnu-toolchain/bin:$PATH
+export PATH=$PATH:/Users/chinmay/Documents/ASU/sp23/advanced-os/cse536-release/install/qemu/objdir
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -120,5 +123,9 @@ alias zshconfig="nvim ~/.zshrc"
 alias nvimconfig="nvim ~/.config/nvim/init.vim"
 alias asu="cd ~/Documents/ASU"
 alias mp="multipass"
+alias u="cd .."
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
